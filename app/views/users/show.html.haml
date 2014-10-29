@@ -120,6 +120,8 @@
             = link_to mv.other_side.account,  mv.other_side.account.accountable.user
           - else
             =link_to mv.other_side.account, mv.other_side.account.accountable
-        %td= mv.transfer.post
+        %td
+          - if mv.transfer.post.try(:active)
+            = link_to mv.transfer.post.title, mv.transfer.post
         %td= mv.transfer.reason
         %td= seconds_to_hm(mv.amount)
