@@ -115,7 +115,11 @@
     - @user.movements.order("created_at DESC").limit(10).each do |mv|
       %tr
         %td= l mv.created_at, format: :short
-        %td= mv.other_side.account
+        %td
+          - if mv.other_side.account.accountable_type == "Member"
+            = link_to mv.other_side.account,  mv.other_side.account.accountable.user
+          - else
+            =link_to mv.other_side.account, mv.other_side.account.accountable
         %td= mv.transfer.post
         %td= mv.transfer.reason
         %td= seconds_to_hm(mv.amount)
